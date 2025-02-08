@@ -133,7 +133,14 @@ async function decrypt(message, password){
     let key_schedule = key_expansion(await generate_key(password));
 
     let decoder = new TextDecoder();
-    return decoder.decode(new Uint8Array(decipher(message, key_schedule))).replace(/\u0000/g, '');
+    let decrypted = new Uint8Array(message.length);
+    for (let i = 0; i < message.length; i += 16) {
+        let block = message.slice(i, i + 16);
+        let encryptedBlock = decipher(block, key_schedule);
+        decrypted.set(encryptedBlock, i);
+    }
+    console.log(decrypted);
+    return decoder.decode(decrypted).replace(/\u0000/g, '');
 
 }
 
