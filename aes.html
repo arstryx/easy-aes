@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple AES Encryption</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+
+
+
+
+    <div class="container  align-items-center col-4 mt-5">
+        <h3 class="text-center">Simple AES Encryption</h3>
+        <div class="mb-4 mt-4">
+            <label class="form-label" for="password-input">Password</label>
+            <div class="input-group mb-3">
+                <input id="password-input" type="password" class="form-control">
+                <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="message-input" class="form-label">Message to encode or decode</label>
+            <textarea class="form-control" style="max-height: 150px;" id="message-input" rows="3"></textarea>
+        </div>
+        <div class="d-flex gap-3 justify-content-center align-items-center mb-4 ">
+            <button type="encode" class="btn btn-primary col-4" onclick="encryptMessage()">Encode</button>
+            <button type="decode" class="btn btn-primary col-4" onclick="decryptMessage()">Decode</button>
+        </div>
+        <div class="mb-4">
+            <label for="message-output" class="form-label">Result</label>
+            <textarea class="form-control" style="max-height: 150px;" id="message-output" rows="3" readonly></textarea>
+        </div>
+    </div>
+
+
+
+
+    <script src="aes.js"></script>
+    <script>
+        async function encryptMessage() {
+            let message = document.getElementById('message-input').value;
+            let key = document.getElementById('password-input').value;
+            let encrypted = await encrypt(message, key, 128);
+            document.getElementById('message-output').value = encrypted;
+        }
+        
+        async function decryptMessage() {
+            let encrypted = document.getElementById('message-input').value;
+            let key = document.getElementById('password-input').value;
+            let decrypted = await decrypt(encrypted, key, 128);
+            document.getElementById('message-output').value = decrypted;
+        }
+
+        document.getElementById("toggle-password").addEventListener("click", function() {
+            let passwordInput = document.getElementById("password-input");
+            let icon = this.querySelector("i");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.replace("bi-eye", "bi-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.replace("bi-eye-slash", "bi-eye");
+            }
+        });
+    </script>
+
+    
+</body>
+</html>
