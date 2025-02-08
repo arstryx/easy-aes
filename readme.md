@@ -8,7 +8,9 @@ It was made for study purposes, so I hope it can demonstrate some basics on real
 
 Do not use this for any real and serious tasks, of course.
 
-Maybe some updates can appear.
+Maybe some updates can appear later.
+
+Also playable online on my university [home page](https://www.stud.fit.vutbr.cz/~xzakha02/easy-aes/aes.html).
 
 You can check detailed specifications online, there are many sources.
 
